@@ -1,0 +1,58 @@
+The idea is to have an easy way to have an updateable table to print
+out to the terminal.  Learn by example:
+
+  require 'rubygems'
+  require 'easytable'
+  include EasyTable
+
+  t = Table.new                # Create a table
+
+Use << to add rows, such as:
+
+  t << ['One','Two','Three']   # Add the header row
+  t << [10,20,30]              # Add row one
+  t << [100,200,300]           # Add another row
+
+You can print to specified out stream:
+
+  t.out = STDOUT               # Default
+  t.print                      # Print it out to STDOUT
+
+The output is:
+
+  > One Two Three
+  >  10  20    30
+  > 100 200   300
+
+You can update values like the following (and print them again):
+
+  t[1][1].value = 1111
+  t[2][2].value = 123123
+  t.print
+
+The output is:
+
+  > One  Two  Three
+  >  10 1111     30
+  > 100  200 123123
+
+You can change the look of cells, like the following:
+
+  t[1][1].color = Color::BLUE
+  t[1][1].background = Color::BLUE
+  t[1][1].bold = true
+  t[1][1].underline = true
+  t[1][1].blink = true
+
+A text file won't show these differences.
+
+To have 'print' statements update the table in place (i.e. instead of
+just printing another copy), set the 'inplace' attribute:
+
+  t.inplace = true
+
+You can set the attributes of complete rows, like (for row 3):
+
+ t[2].background = Color::BLUE
+
+

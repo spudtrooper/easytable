@@ -1,0 +1,49 @@
+#!/usr/bin/env ruby
+# -*- ruby -*-
+
+require 'lib/easytable'
+include EasyTable
+
+def main(argv)
+
+  # === Simple example ===
+  puts '=== Simple ==='
+  t = Table.from_array [[1,2,3],
+                        [4,5,6],
+                        [7,8,9]]
+  puts t or puts
+  
+  # === Example with header ===
+  puts '=== Header ==='
+  t = Table.from_array([[  'Name', 'Age',    'Favorite Donut'],
+                        [   'Joe',    19,            'Glazed'],      
+                        ['Suzy Q',    45, 'Strawberry-filled'],
+                        [   'Bob',    25,     'I hate donuts']])
+  t.space = ' | '
+  t.underline_header = true
+  puts t or puts
+
+  # Allow for easier access to cell values
+  t.col_mnemonics = [:name,:age,:donut]
+  t.row_mnemonics = [:head,:joe,:suzy_q,:bob]
+  puts t or puts
+  
+  # Updating values
+  t[2][1].value = 125234
+  t[:joe][:donut].value = 'Chocolate'
+  t.joe.age.value = 123
+  puts t or puts
+
+  # Formatting the output
+  t.head.color = Color::RED
+  t.joe.background = Color::BLUE
+  t.bob.donut.bold = true
+  t.bob.donut.underline = true
+  t.bob.donut.color = Color::YELLOW
+  t.bob.donut.background = Color::GREEN
+  puts t or puts
+  
+
+end
+
+main ARGV
