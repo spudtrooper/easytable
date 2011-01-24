@@ -55,4 +55,37 @@ You can set the attributes of complete rows, like (for row 3):
 
  t[2].background = Color::BLUE
 
+You can add mnemonics to the rows and columns, so that you aren't
+indexing the values with integers.  For example, take the following
+table:
 
+  t = Table.from_array([[  'Name', 'Age',    'Favorite Donut'],
+                        [   'Joe',    19,            'Glazed'],      
+                        ['Suzy Q',    45, 'Strawberry-filled'],
+                        [   'Bob',    25,     'I hate donuts']])
+
+Printing this we have
+
+  >   Name | Age |    Favorite Donut
+  > ------ | --- | -----------------
+  >    Joe |  19 |            Glazed
+  > Suzy Q |  45 | Strawberry-filled
+  >    Bob |  25 |     I hate donuts
+
+By using mnemonics, such as:
+
+  t.col_mnemonics = [:name,:age,:donut]
+  t.row_mnemonics = [:head,:joe,:suzy_q,:bob]
+
+We can then refer to the table cells in the following ways now (all
+mean the sams):
+
+  t[1][2].value = 'Chocolate'
+  t[:joe][:donut].value = 'Chocolate'
+  t.joe.donut.value = 'Chocolate'
+
+  >   Name | Age |    Favorite Donut
+  > ------ | --- | -----------------
+  >    Joe |  19 |         Chocolate
+  > Suzy Q |  45 | Strawberry-filled
+  >    Bob |  25 |     I hate donuts
