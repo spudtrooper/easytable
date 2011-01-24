@@ -161,12 +161,27 @@ module EasyTable
       out.flush
     end
 
+    def to_a
+      to_array
+    end
+
     def to_array
       @rows.map {|row| row.map {|cell| cell.value}}
     end
 
     def to_csv(sep=SEP)
       @rows.map {|row| row.map {|cell| cell.value}.join sep}.join "\n"
+    end
+
+    def to_html
+      rows = @rows
+      str = '<table>'
+      rows.map do |row|
+        str += '<tr>'
+        str += row.map {|cell| '<td>' + cell.value.to_s + '</td>'}.join ''
+        str += '</tr>'
+      end
+      str += '</table>'
     end
 
     def num_rows
